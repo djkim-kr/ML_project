@@ -1,0 +1,45 @@
+#!/bin/bash
+#SBATCH -J quip_{subdir}
+#SBATCH -p long
+##SBATCH -t 00:00:00
+#SBATCH -N 1 -n 8 
+#SBATCH -o out.%j
+##SBATCH -e err.%j
+##SBATCH --time={time}
+##SBATCH --mail-type=END,FAIL,TIME_LIMIT_80
+##SBATCH --mail-user=
+
+#^^^^USER SPECIFIC OPTIONS ABOVE^^^^#
+
+cd $SLURM_SUBMIT_DIR
+
+startdate=`date +%s`
+cat << EOF > info.${SLURM_JOB_ID}
+Calculation started at `date -d @$startdate +"%Y-%m-%d, %T"`
+Job name: `echo $SLURM_JOB_NAME`
+Job number: `echo $SLURM_JOB_ID`
+Node info: `echo $SLURM_JOB_NODELIST`
+Thread number: `echo $SLURM_NTASKS`
+EOF
+
+source /opt/anaconda3/2022.05/etc/profile.d/conda.sh
+source /etc/profile.d/modules.sh
+module load ompi/4.1.2-it
+conda activate py3.10
+
+export OMP_NUM_THREADS=8
+
+
+ ./gap_fit.sh > gap.log
+
+ quip E=T F=F atoms_filename={mol}_train.xyz param_filename=GAP.xml | grep AT | sed 's/AT//' > {out}_train.xyz
+ quip E=T F=F atoms_filename={mol}_valid.xyz param_filename=GAP.xml | grep AT | sed 's/AT//' > {out}_valid.xyz
+ quip E=T F=F atoms_filename={mol}_test.xyz  param_filename=GAP.xml | grep AT | sed 's/AT//' > {out}_test.xyz
+
+finishdate=`date +%s`
+diff=$(($finishdate - $startdate))
+echo "Calculation finished at `date -d @$finishdate +"%Y-%m-%d, %T"`" >> info.${SLURM_JOB_ID}
+echo "Wall time: `date -d @$diff +"$(($diff/86400)) days, $(($diff%86400/3600))h $(($diff%3600/60))m $(($diff%60))s"`" >> info.${SLURM_JOB_ID}
+
+rm -f GAP.*
+exit 0

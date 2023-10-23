@@ -1,0 +1,21 @@
+#!/bin/bash -l
+gap_fit energy_parameter_name=energy force_parameter_name=forces do_copy_at_file=F sparse_separate_file=T gp_file=GAP.xml at_file={name}_train.xyz default_sigma={sigma_value} \
+gap={first}                       \
+soap                        \
+l_max={l_max}                     \
+n_max={n_max}                   \
+atom_sigma={atom_sigma}             \
+zeta={zeta}                      \
+cutoff={cutoff}                 \
+cutoff_transition_width={cutoff_transition_width} \
+central_weight={central_weight}         \
+n_sparse={n_sparse}               \
+delta={delta}                  \
+radial_scaling={radial_scaling}        \
+covariance_type=dot_product \
+sparse_method=cur_points    \
+f0=0.0                      \
+{last} \
+sparse_jitter=1.0e-8 \
+e0_offset=0.0 \
+e0={e0}  \
