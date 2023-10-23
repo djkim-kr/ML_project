@@ -10,6 +10,6 @@ Internal - Using energy contribution from each Internal coordinate
 
 Normal+harmonic - Using energy contribution from each Normal coordinate / Hessian matrix
 
-Script - helps to generate the scripts to run for SLURM system
+Script - helps to generate and run the scripts for SLURM system
 
 Other codes - other codes... mostly for analyzing and proto-type
