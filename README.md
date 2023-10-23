@@ -7,5 +7,9 @@ obtained from the ab initio method (CCSD(T)),
 more quickly and efficiently using various approaches with GAP and QUIP
 
 Internal - Using energy contribution from each Internal coordinate
+
 Normal+harmonic - Using energy contribution from each Normal coordinate / Hessian matrix
+
 Script - helps to generate the scripts to run for SLURM system
+
+Other codes - other codes... mostly for analyzing and proto-type
