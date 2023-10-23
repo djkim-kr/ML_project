@@ -1,47 +1,14 @@
-# geomconvert
-A python utility to convert between Cartesian and Z-matrix geometries. 
+# Notice
 
-RECENTLY ADDED: when converting from zmat to xyz, variables can now be read with no caveats.
-
-Running the below will print the output to the standard output stream (i.e. the terminal in most cases); this can be piped into a file in the usual way, e.g.
-
-python3 gc.py -xyz test.xyz > test.zmat
+Read 'README_gc.md' for understanding how the geometry conversion(gc.py) works. 
+You can find more details about geometry conversion python code in 'LICENSE' file.
 
 ## Usage
 
-To convert from XYZ to Z-matrix:
+xyz_to_zmat.py - will help you to convert .xyz file with multiple molecules to .zmat file. by using gc.py
 
-python3 gc.py -xyz test.xyz 
+to adjust file, please look into it and fix 'word', 'group_size', 'input_xyz_file'
 
-for files in XYZ format, i.e.
-
-Number of atoms
-
-TITLE CARD
-
-Atom x y z
-
-Atom x y z
-
-...
-
-The default is to print the values of distances/angles/dihedrals. These can instead be printed as variables with the options
-
---rvar=True
---avar=True
---dvar=True
-
-respectively. Alternative
-
---allvar=True
-
-will set all the above to true.
-
-To convert from Z-matrix to XYZ:
-
-python gc.py -zmat test.zmat
-
-for files containing a Z-matrix. This no longer assumes that the Z-matrix has values not variables for distances/angles/dihedrals, and can read variables with no additional options. 
-
-
-
+test_internalmode.py - will automatically gets infomation from 'data' folder and conduct the calculation using interpolation. 
+You will get 'int_{}.xyz' as a result. Once you have output files, you can conduct ML process using files in 'scipts' folder
+! You need proper data in proper format in 'data' folder so that it can be conducted successfully. 
